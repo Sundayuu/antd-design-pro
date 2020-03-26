@@ -1,8 +1,30 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { Request, Response } from 'express';
 import { parse } from 'url';
-import { TableListItem, TableListParams } from './data.d';
 
+export interface TableListItem {
+  key: number;
+  disabled?: boolean;
+  href: string;
+  avatar: string;
+  name: string;
+  owner: string;
+  desc: string;
+  callNo: number;
+  status: number;
+  updatedAt: Date;
+  createdAt: Date;
+  progress: number;
+}
+export interface TableListParams {
+  sorter?: string;
+  status?: string;
+  name?: string;
+  desc?: string;
+  key?: number;
+  pageSize?: number;
+  currentPage?: number;
+}
 // mock tableListDataSource
 const genList = (current: number, pageSize: number) => {
   const tableListDataSource: TableListItem[] = [];
@@ -73,7 +95,7 @@ function getRule(req: Request, res: Response, u: string) {
     dataSource = dataSource.filter(data => data.name.includes(params.name || ''));
   }
   const result = {
-    context: dataSource,
+    data: dataSource,
     total: tableListDataSource.length,
     success: true,
     pageSize,
@@ -150,6 +172,6 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/rule': getRule,
+  'GET /api/myrule': getRule,
   'POST /api/rule': postRule,
 };

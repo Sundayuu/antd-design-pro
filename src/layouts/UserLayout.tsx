@@ -31,7 +31,7 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
   const { breadcrumb } = getMenuData(routes);
   const title = getPageTitle({
     pathname: location.pathname,
-    formatMessage,
+    // formatMessage,
     breadcrumb,
     ...props,
   });
